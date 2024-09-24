@@ -39,21 +39,21 @@ const LeftSideBottomCard = () => {
     dataService.setData({type:'communityPage',CommunityName});
   }
   return (
-<div className="flex flex-col justify-between min-h-[380px] items-center">
+<div >
   {/* Card */}
-  <div className="shadow-lg min-h-[360px]">
+  <div className="shadow-lg min-h-[360px] flex flex-col justify-between">
       <div className="bg-white p-3 rounded-md mt-16">
-        <Link href="/explore" className="text-blue-600 hover:text-blue-800">Explore</Link>
+        <Link href="/explore" >Explore</Link>
       </div>
       <div className="bg-white p-3 rounded-md mt-16">
-        <Link href="/Profile" className="text-blue-600 hover:text-blue-800">Profile</Link>
+        <Link href="/Profile" >Profile</Link>
       </div>
       <div className="bg-white p-3 rounded-md mt-16 mb-16">
       {showCreateCommunityPage?(
           <CreateCommunityPage/>
       ):(
         
-        <Link href='/community' className="text-blue-600 hover:text-blue-800">see Community Page</Link>
+        <Link href='/community' >see Community Page</Link>
       )}
       </div>
       <div>

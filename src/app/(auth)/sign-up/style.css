@@ -1,0 +1,13 @@
+html,
+body {
+  margin: 0;
+  height: 100%;
+  background: #1a032b;
+  overflow: hidden;
+  perspective: 10rem;
+}
+.background-image {
+  width: 1000px;  /* or any other value, like 500px */
+  height: 500px; /* Maintains aspect ratio */
+
+}

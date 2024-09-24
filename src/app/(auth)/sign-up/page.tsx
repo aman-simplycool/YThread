@@ -15,6 +15,7 @@ import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, For
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Loader2 } from 'lucide-react';
+import Background from './background';
 export default function SignUpForm(){
   const [userName,setUserName] = useState('');
   const [userNameMessage,setUserNameMessage] = useState('');
@@ -81,13 +82,15 @@ export default function SignUpForm(){
     }
   }
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-800">
-      <div className="w-full max-w-md p-8 space-y-8 bg-white rounded-lg shadow-md">
+    <div className="flex relative justify-center items-center min-h-screen ">
+      <div className="absolute inset-0 z-0 flex justify-center items-center">
+        <Background />
+      </div>
+      <div className="w-full max-w-md p-8 space-y-8  rounded-lg shadow-md z-10">
         <div className="text-center">
-          <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl mb-6">
-            Join True Feedback
+          <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl mb-6 text-orange-700">
+            Join The Exciting Threads Community
           </h1>
-          <p className="mb-4">Sign up to start your anonymous adventure</p>
         </div>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
@@ -96,7 +99,7 @@ export default function SignUpForm(){
               control={form.control}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Username</FormLabel>
+                  <FormLabel className='text-orange-900 text-lg font-bold'>Username</FormLabel>
                   <Input
                     {...field}
                     onChange={(e) => {
@@ -125,10 +128,10 @@ export default function SignUpForm(){
               control={form.control}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email</FormLabel>
+                  <FormLabel className='text-orange-900 text-lg font-bold'>Email</FormLabel>
                   <Input {...field} name="email" />
                   <p className='text-muted text-gray-400 text-sm'>We will send you a verification code</p>
-                  <FormMessage />
+                  <FormMessage className='text-orange-900 text-lg font-bold'/>
                 </FormItem>
               )}
             />
@@ -138,13 +141,13 @@ export default function SignUpForm(){
               control={form.control}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Password</FormLabel>
+                  <FormLabel className='text-orange-900 text-lg font-bold'>Password</FormLabel>
                   <Input type="password" {...field} name="password" />
-                  <FormMessage />
+                  <FormMessage className='text-orange-900 text-lg font-bold'/>
                 </FormItem>
               )}
             />
-            <Button type="submit" className='w-full' disabled={isSubmitting}>
+            <Button type="submit" className='w-full bg-yellow-800' disabled={isSubmitting}>
               {isSubmitting ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -157,7 +160,7 @@ export default function SignUpForm(){
           </form>
         </Form>
         <div className="text-center mt-4">
-          <p>
+          <p className='text-orange-900 text-lg font-bold'>
             Already a member?{' '}
             <Link href="/sign-in" className="text-blue-600 hover:text-blue-800">
               Sign in

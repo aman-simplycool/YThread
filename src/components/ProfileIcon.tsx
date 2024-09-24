@@ -1,27 +1,39 @@
 'use client';
 
+import * as React from "react";
 import { signOut, useSession } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
-import React from 'react';
-import { FaUser } from "react-icons/fa";
-
-function ProfileIcon() {
-  const router = useRouter();
-  const {data:session,status} = useSession();
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "@/components/ui/avatar";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { IoIosLogOut } from "react-icons/io";
+export function ProfileIcon() {
+  const { data: session, status } = useSession();
 
   const handleLogout = async () => {
-
-    await signOut({ callbackUrl: '/' }); 
-
+    await signOut({ callbackUrl: '/' });
   };
 
   return (
-    <div className="flex items-center justify-center" onClick={handleLogout}>
-        <div className="flex items-center justify-center h-16 w-16 rounded-full bg-gray-800">
-          <FaUser className="text-white w-10 h-10" />
-      </div>
-    </div>
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Avatar className="cursor-pointer">
+          <AvatarImage src={session?.user?.image || "https://github.com/shadcn.png"} alt="@user" />
+          <AvatarFallback>{session?.user?.name?.charAt(0) || "U"}</AvatarFallback>
+        </Avatar>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent className="w-56">
+        <DropdownMenuItem onClick={handleLogout} className="bg-brown-400">
+          <IoIosLogOut/> log out
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 }
-
-export default ProfileIcon;

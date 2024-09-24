@@ -2,13 +2,13 @@ import React from 'react';
 
 import TrendingYs from './trendingY';
 import TopYUsers from './topYUsers';
-import ProfileIcon from './ProfileIcon';
+import { ProfileIcon } from './ProfileIcon';
 
 const RightSideBar = () => {
   return (
-    <div className="fixed right-0 top-4 w-80 mr-8 h-screen bg-[#475569] p-4 space-y-6 overflow-y-auto shadow-lg">
+    <div className="mr-0 fixed top-4 w-80 h-screen p-3 bg-gray-900 overflow-y-auto space-y-6">
 
-      <div className="">
+      <div className="flex justify-center">
         <ProfileIcon />
       </div>
 
