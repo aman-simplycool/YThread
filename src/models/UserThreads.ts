@@ -1,4 +1,5 @@
 import mongoose, { Schema, Document, Types } from "mongoose";
+import SingleThreadModel from "./singleThread";
 
 export interface UserThread extends Document {
   userName: string;
@@ -14,7 +15,7 @@ export const userThreadSchema = new Schema({
   
   threads: [{
     type: Schema.Types.ObjectId,
-    ref: 'SingleThread',
+    ref: SingleThreadModel.modelName,
   }],
   following:{
     type:Number,

@@ -34,6 +34,7 @@ const ProfileSection: React.FC = () => {
         }
         else{
           toast({
+            className:'bg-[#FFAC1C]',
             title: "Something went wrong while fetching threads",
             description: response.data.message,
           });
@@ -41,6 +42,7 @@ const ProfileSection: React.FC = () => {
       } catch (error) {
         const errorResponse = error as AxiosError<apiResponse>;
         toast({
+          className:'bg-[#FFAC1C]',
           title: 'Error',
           description: errorResponse.message,
           variant: "destructive",

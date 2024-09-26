@@ -14,12 +14,11 @@ const HomepageThread = () => {
   const [threadsArr, setThreadsArr] = useState<SingleThread[]>([]);
   const fetchThreads = async () => {
     try {
-      let apiEndPoint = '';
-        apiEndPoint='/api/getyThreads';
-      const response = await axios.get(apiEndPoint);
+      const response = await axios.get('/api/getyThreads');
       dataService.setData({
         threadsArr:response.data.threads||[],
       });
+      console.log(response,'this is response');
       dataService.notifyListeners(); 
       if (response.data.success === false) {
         toast({

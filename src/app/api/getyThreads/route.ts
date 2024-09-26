@@ -13,12 +13,13 @@ export async function GET(request:Request){
       })
       .exec();
     const threads = response.map((item)=>item.threads).flat();
-    return Response.json({message:"threads fetched succesfully",status:200,threads});
+    return Response.json({message:"threads fetched succesfully",status:200,threads,success:true});
   } catch (error) {
     console.log(error);
     return Response.json({
       message:"some error occured while retrieving yThreads",
-      status:400
+      status:400,
+      success:false
     });
   }
 
