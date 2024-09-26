@@ -49,7 +49,7 @@ const TrendingYs = () => {
             <HoverCardContent className="p-4 bg-gray-800 rounded-lg shadow-lg text-white border-none transition-transform transform hover:scale-105 duration-300">
               <div className="space-y-2 text-center">
                 <h4 className="text-lg font-semibold">Trending Thread</h4>
-                <p className="text-sm">Click to see what &apos; s inside</p>
+                <p className="text-sm">Click to see what&apos;s inside</p>
               </div>
             </HoverCardContent>
             </HoverCard>

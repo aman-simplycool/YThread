@@ -15,6 +15,7 @@ const TopYUsers = () => {
         const response = await axios.get<apiResponse>('/api/mostFollowedUsers');
         if(response.data.success === false){
           toast({
+            className:'bg-[#FFAC1C]',
             title:'something went wrong',
             variant:'destructive',
           })
@@ -25,6 +26,7 @@ const TopYUsers = () => {
       } catch (error) {
         const errorResponse = error as apiResponse;
         toast({
+          className:'bg-[#FFAC1C]',
           title: 'Error',
           description: errorResponse.message,
           variant: 'destructive',

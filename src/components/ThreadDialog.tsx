@@ -48,16 +48,19 @@ export function ThreadDialog() {
   const { data: session, status } = useSession();
 
   const fetchCommunityDetails = async()=>{
-    const response =await axios.get(`/api/isCommunityPresent?userName=${user}`);
-    if(response.data.success){
-      setFetchCommunityMessage(response.data.message);
-      setCommunityName(response.data.communityName);
-    }
-    else{
-      toast({
-        title:'something went wrong',
-        variant:'destructive',
-      })
+    if(user){
+      const response =await axios.get(`/api/isCommunityPresent?userName=${user}`);
+      if(response.data.success){
+        setFetchCommunityMessage(response.data.message);
+        setCommunityName(response.data.communityName);
+      }
+      else{
+        toast({
+          className:'bg-[#FFAC1C]',
+          title:'something went wrong',
+          variant:'destructive',
+        })
+      }
     }
   }
   useEffect(() => {
@@ -83,6 +86,7 @@ export function ThreadDialog() {
       const response = await axios.post<apiResponse>('/api/createyThread', updatedData);
       if (response.data.success) {
         toast({
+          className:'bg-[#FFAC1C]',
           title: "Posted Thread successfully",
         });
         reset();
@@ -92,12 +96,14 @@ export function ThreadDialog() {
         });
       } else {
         toast({
+          className:'bg-[#FFAC1C]',
           title: "Please try later, something went wrong",
         });
       }
     } catch (error) {
       console.log(error);
       toast({
+        className:'bg-[#FFAC1C]',
         title: "An error occurred",
         variant: 'destructive',
       });

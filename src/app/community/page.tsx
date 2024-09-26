@@ -27,7 +27,6 @@ const ProfileSection: React.FC = () => {
       try {
         setUser(session?.user);
         const response = await axios.get(`/api/getCommunityThreads?userName=${user.userName}`);
-        console.log(response);
         if(response.data.success === true){
           setThreadsArr(response.data.threads||[]);
           setCommunityName(response.data.communityName);
@@ -37,6 +36,7 @@ const ProfileSection: React.FC = () => {
         }
         else{
           toast({
+            className:'bg-[#FFAC1C]',
             title: "Something went wrong while fetching threads",
             description: response.data.message,
           });
@@ -44,6 +44,7 @@ const ProfileSection: React.FC = () => {
       } catch (error) {
         const errorResponse = error as AxiosError<apiResponse>;
         toast({
+          className:'bg-[#FFAC1C]',
           title: 'Error',
           description: errorResponse.message,
           variant: "destructive",

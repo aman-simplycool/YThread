@@ -160,6 +160,7 @@ const ThreadCard: React.FC<ThreadCardProps> = ({ index, title, createdAt, userNa
       }
     else{
       toast({
+        className:'bg-[#FFAC1C]',
         title:'please click on like to be on default state'
       })
     }

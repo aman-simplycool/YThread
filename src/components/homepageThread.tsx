@@ -18,10 +18,10 @@ const HomepageThread = () => {
       dataService.setData({
         threadsArr:response.data.threads||[],
       });
-      console.log(response,'this is response');
       dataService.notifyListeners(); 
       if (response.data.success === false) {
         toast({
+          className:'bg-[#FFAC1C]',
           title: "Something went wrong while fetching threads",
           description: response.data.message,
         });
@@ -31,6 +31,7 @@ const HomepageThread = () => {
     } catch (error) {
       const errorResponse = error as AxiosError<apiResponse>;
       toast({
+        className:'bg-[#FFAC1C]',
         title: 'Error',
         description: errorResponse.message,
         variant: "destructive",
@@ -42,6 +43,7 @@ const HomepageThread = () => {
     const handleServiceUpdate = (data:any) => {
       if (data.newThread && Array.isArray(data.newThread)) {
           toast({
+            className:'bg-[#FFAC1C]',
             title:"new thread added",
             variant:'default'
           })
@@ -49,10 +51,6 @@ const HomepageThread = () => {
       }
       if(data.threadsArr){
         setThreadsArr(data.threadsArr);
-        toast({
-          title: "Threads updated",
-          variant: "default",
-        });
       }
       if(data.type){
         typeOfThreadToRender = data.type;

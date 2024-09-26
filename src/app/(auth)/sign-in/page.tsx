@@ -45,6 +45,7 @@ export default function SignInForm() {
     if (result?.error) {
       if(result?.error==="Please verify your account before logging in"){
         toast({
+          className:'bg-[#FFAC1C]',
           title: 'Error',
           description: result.error,
           variant: 'destructive',
@@ -53,12 +54,14 @@ export default function SignInForm() {
       }
       if (result.error === 'CredentialsSignin') {
         toast({
+          className:'bg-[#FFAC1C]',
           title: 'Login Failed',
           description: 'Incorrect username or password',
           variant: 'destructive',
         });
       } else {
         toast({
+          className:'bg-[#FFAC1C]',
           title: 'Error',
           description: result.error,
           variant: 'destructive',

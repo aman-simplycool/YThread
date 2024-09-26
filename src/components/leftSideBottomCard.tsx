@@ -10,38 +10,42 @@ import { apiResponse } from '@/types/apiResponse';
 import ThreadDialog from './ThreadDialog';
 import { useSession } from 'next-auth/react';
 const LeftSideBottomCard = () => {
-  const [user,setUser]= useState({});
+  const [user,setUser]= useState();
   const [CommunityName,setCommunityName]= useState('');
   const {toast}= useToast();
   const [showCreateCommunityPage,setShowCreateCommunityPage]= useState(true);
   const {data:session,status} = useSession();
-  useEffect(()=>{
-    async function canCreateCommunity() {
+  async function canCreateCommunity() {
+    if(user){
       try {
-        setUser(session?.user.userName);
         const response = await axios.get<apiResponse>(`/api/isCommunityPresent?userName=${user}`);
         if(response.data.communityName){
           setCommunityName(response.data.communityName);
           setShowCreateCommunityPage(false);
+          dataService.setData({'CommunityName':response.data.communityName});
+          dataService.notifyListeners();
         }
       } catch (error) {
         const errorRes = error as AxiosError;
         toast({
-          title:"something went wrong",
+          className:'bg-[#FFAC1C]',
+          title:errorRes.message,
           variant:'destructive'
         })
       }
     }
-    canCreateCommunity();
+  }
+  useEffect(()=>{
+    if(status === 'authenticated' && session.user){
+      setUser(session?.user.userName);
+      canCreateCommunity();
+    }
   },[session,status]);
 
-  function passDataToDataService(){
-    dataService.setData({type:'communityPage',CommunityName});
-  }
   return (
 <div >
   {/* Card */}
-  <div className="shadow-lg min-h-[360px] flex flex-col justify-between">
+  <div className="shadow-lg min-h-[400px] flex flex-col justify-between">
       <div className="bg-white p-3 rounded-md mt-16">
         <Link href="/explore" >Explore</Link>
       </div>
@@ -50,10 +54,12 @@ const LeftSideBottomCard = () => {
       </div>
       <div className="bg-white p-3 rounded-md mt-16 mb-16">
       {showCreateCommunityPage?(
-          <CreateCommunityPage/>
-      ):(
-        
         <Link href='/community' >see Community Page</Link>
+      ):(
+        <div className='ml-[-15px]'>
+        <CreateCommunityPage/>
+        </div>
+
       )}
       </div>
       <div>

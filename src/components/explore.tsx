@@ -18,6 +18,7 @@ const Explore = () => {
         }
         else{
           toast({
+            className:'bg-[#FFAC1C]',
             title: 'Error',
             description: response.data.message,
           })
@@ -25,6 +26,7 @@ const Explore = () => {
       } catch (error) {
         const errorResponse = error as AxiosError<apiResponse>;
         toast({
+          className:'bg-[#FFAC1C]',
           title: 'Error',
           description: errorResponse.message,
           variant: 'destructive',

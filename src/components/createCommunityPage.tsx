@@ -26,6 +26,7 @@ import axios from 'axios';
 import { Loader2 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useSession } from 'next-auth/react';
+import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 
 export function CreateCommunityPage() {
   const [category, setCategory] = useState('');
@@ -43,12 +44,14 @@ export function CreateCommunityPage() {
       const response = await axios.post('/api/createCommunity', data);
       if (response.data.success) {
         toast({
+          className:'bg-[#FFAC1C]',
           title: "Community page created successfully",
           variant: 'default',
         });
       }
     } catch (error) {
       toast({
+        className:'bg-[#FFAC1C]',
         title: "Something went wrong",
         variant: 'destructive',
       });
@@ -67,6 +70,7 @@ export function CreateCommunityPage() {
           setUniqueResMessage(response.data.message);
         } catch (error) {
           toast({
+            className:'bg-[#FFAC1C]',
             title: "Something went wrong",
             variant: 'destructive',
           });
@@ -81,14 +85,14 @@ export function CreateCommunityPage() {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button variant="outline">start a community</Button>
+        <Button className='text-base'>start a community</Button>
       </SheetTrigger>
-      <SheetContent>
+      <SheetContent className='bg-brown-500'>
         <form onSubmit={handleSubmit}>
           <SheetHeader>
             <SheetTitle>Edit Community</SheetTitle>
             <SheetDescription>
-              Make changes to your community here. Click save when you &apos; re done.
+              Make changes to your community here. Click save when you&apos;re done.
             </SheetDescription>
           </SheetHeader>
           <div className="grid gap-4 py-4">
@@ -119,26 +123,31 @@ export function CreateCommunityPage() {
                 Category
               </Label>
               <Select onValueChange={(value) => setCategory(value)}>
-                <SelectTrigger className="col-span-3">
+                <SelectTrigger className="col-span-3 ">
                   <SelectValue placeholder="Select a category" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectGroup>
-                    <SelectLabel>Categories</SelectLabel>
-                    <SelectItem value="technology">Technology</SelectItem>
-                    <SelectItem value="education">Education</SelectItem>
-                    <SelectItem value="health">Health</SelectItem>
-                    <SelectItem value="business">Business</SelectItem>
-                    <SelectItem value="sports">Sports</SelectItem>
+                  <SelectGroup className='bg-blue-gray-200'>
+                    <SelectLabel >Categories</SelectLabel>
+                    <SelectItem value="technology" className='cursor-pointer'>Technology</SelectItem>
+                    <SelectItem value="education" className='cursor-pointer'>Education</SelectItem>
+                    <SelectItem value="health" className= 'cursor-pointer'>Health</SelectItem>
+                    <SelectItem value="business" className= 'cursor-pointer'>Business</SelectItem>
+                    <SelectItem value="sports" className='cursor-pointer'>Sports</SelectItem>
                   </SelectGroup>
                 </SelectContent>
               </Select>
             </div>
           </div>
           <SheetFooter>
-            <Button type="submit">Save changes</Button>
+            <Button type="submit" className='bg-orange-200'>Save changes</Button>
           </SheetFooter>
         </form>
+        <DotLottieReact
+      src="https://lottie.host/4f2c1c0a-f66a-47c7-8c64-c5b2ada1ba6a/rMMHscvOHs.json"
+      loop
+      autoplay
+    />
       </SheetContent>
     </Sheet>
   );

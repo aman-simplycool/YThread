@@ -28,6 +28,7 @@ const VerifyAccount = () => {
         verifyCode:data.code,
       });
       toast({
+        className:'bg-[#FFAC1C]',
         title:"success",
         description:response.data.message
       })
@@ -35,6 +36,7 @@ const VerifyAccount = () => {
     } catch (error) {
       const axiosError = error as AxiosError<apiResponse>;
       toast({
+        className:'bg-[#FFAC1C]',
         title:"failure",
         description:axiosError.response?.data.message??"some error occured while verifying otp",
       });

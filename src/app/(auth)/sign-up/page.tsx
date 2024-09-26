@@ -58,6 +58,7 @@ export default function SignUpForm(){
       const response = await axios.post<apiResponse>('/api/sign-up', data);
       if(response.data.success=== true){
         toast({
+          className:'bg-[#FFAC1C]',
           title:'Successfull sign up',
           description:response.data.message
         })
@@ -65,6 +66,7 @@ export default function SignUpForm(){
       }
       else{
         toast({
+          className:'bg-[#FFAC1C]',
           title:'sign up failed',
           description:response.data.message
         })
