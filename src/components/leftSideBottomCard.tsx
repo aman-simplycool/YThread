@@ -19,7 +19,7 @@ const LeftSideBottomCard = () => {
     if(user){
       try {
         const response = await axios.get<apiResponse>(`/api/isCommunityPresent?userName=${user}`);
-        if(response.data.communityName){
+        if(response.data.communityName && response.data.communityName.length>1){
           setCommunityName(response.data.communityName);
           setShowCreateCommunityPage(false);
           dataService.setData({'CommunityName':response.data.communityName});
@@ -54,12 +54,11 @@ const LeftSideBottomCard = () => {
       </div>
       <div className="bg-white p-3 rounded-md mt-16 mb-16">
       {showCreateCommunityPage?(
-        <Link href='/community' >see Community Page</Link>
+       <div className='ml-[-15px]'>
+       <CreateCommunityPage/>
+       </div>
       ):(
-        <div className='ml-[-15px]'>
-        <CreateCommunityPage/>
-        </div>
-
+        <Link href='/community' >see Community Page</Link>
       )}
       </div>
       <div>

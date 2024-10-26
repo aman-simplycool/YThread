@@ -62,7 +62,7 @@ export default function SignUpForm(){
           title:'Successfull sign up',
           description:response.data.message
         })
-        router.replace(`/verify/${userName}`);
+        router.replace(`/sign-in`);
       }
       else{
         toast({
@@ -75,6 +75,7 @@ export default function SignUpForm(){
       const errorResponse = error as AxiosError<apiResponse>; 
       toast({
         title:'Error',
+        className:'bg-[#FFAC1C]',
         description:errorResponse.message,
         variant:"destructive",
       })
@@ -132,7 +133,6 @@ export default function SignUpForm(){
                 <FormItem>
                   <FormLabel className='text-orange-900 text-lg font-bold'>Email</FormLabel>
                   <Input {...field} name="email" />
-                  <p className='text-muted text-gray-400 text-sm'>We will send you a verification code</p>
                   <FormMessage className='text-orange-900 text-lg font-bold'/>
                 </FormItem>
               )}

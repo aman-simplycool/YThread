@@ -45,7 +45,7 @@ const userSchema = new Schema<user>({
   }],
   community:{
     type: String,
-    required: true,
+    default:''
   }
 });
 
