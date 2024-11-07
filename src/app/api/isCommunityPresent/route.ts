@@ -8,7 +8,7 @@ export async function GET(req:Request){
     const {searchParams} = new URL(req.url);
     const userName = searchParams.get('userName');
     const res = await CommunityModel.findOne({userName});
-    if(res.communityName){
+    if(res){
       return Response.json({status:200,message:"already exist",success:true,communityName:res.communityName})
     }
     else{

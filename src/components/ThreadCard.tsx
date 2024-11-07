@@ -14,7 +14,6 @@ import { useDebounceCallback } from 'usehooks-ts';
 dayjs.extend(relativeTime); 
 
 interface ThreadCardProps {
-  key: string;
   index: number;
   title: string;
   createdAt: string;
@@ -24,7 +23,7 @@ interface ThreadCardProps {
   noCount: number;
 }
 
-const ThreadCard: React.FC<ThreadCardProps> = ({ index, title, createdAt, userName, message, yesCount, noCount }) => {
+const ThreadCard: React.FC<ThreadCardProps> = ({ index,title, createdAt, userName, message, yesCount, noCount }) => {
   const timeAgo = dayjs(createdAt).fromNow();
   const{toast} = useToast();
   // State to track like/dislike
@@ -51,12 +50,11 @@ const ThreadCard: React.FC<ThreadCardProps> = ({ index, title, createdAt, userNa
         
         // Subscribe to dataService updates
         dataService.subscribe(handleServiceUpdate);
-      }, 2000); // 2-second delay
+      }, 2000);
     };
   
     fetchDataWithDelay();
 
-    // Cleanup subscription
     return () => {
       dataService.unsubscribe(handleServiceUpdate);
     };
@@ -117,7 +115,7 @@ const ThreadCard: React.FC<ThreadCardProps> = ({ index, title, createdAt, userNa
   const handleDislike = async (index: number) => {
     setId(threadsArr[index].id);
     await new Promise(resolve => setTimeout(resolve, 1000));
-    if(liked===false){ 
+    if(liked===false){
         setDisliked(!disliked);
         setId(threadsArr[index]._id as string);
         const updatedThreadsArr = [...threadsArr];
@@ -169,7 +167,7 @@ const ThreadCard: React.FC<ThreadCardProps> = ({ index, title, createdAt, userNa
     <div className="bg-white p-4 rounded-lg shadow mb-4">
       {/* Title and Time Row */}
       <div className="flex justify-between items-center">
-        <h2 className="text-lg font-bold">{title}</h2>
+      <h2 className="text-lg font-bold">{title}</h2>
         <span className="text-sm text-gray-500">{timeAgo}</span>
       </div>
       {/* Username and Message Row */}
@@ -178,14 +176,14 @@ const ThreadCard: React.FC<ThreadCardProps> = ({ index, title, createdAt, userNa
         <p className="text-base text-gray-800 mt-1">{message}</p>
       </div>
       {/* Yes/No Counts Row */}
-      <div className="mt-4 flex justify-start space-x-4">
+      <div className="mt-4 flex justify-start space-x-4" >
         <div className="flex items-center">
           <span className="text-green-600 font-semibold">{yesCount}</span>
-          <PiSmileyFill onClick={() => handleLike(index)} />
+          <PiSmileyFill onClick={()=>handleDislike(index)}/>
         </div>
         <div className="flex items-center">
           <span className="text-red-600 font-semibold">{noCount}</span>
-          <FaFrownOpen onClick={() => handleDislike(index)} />
+          <FaFrownOpen onClick={()=>handleDislike(index)}/>
         </div>
       </div>
     </div>

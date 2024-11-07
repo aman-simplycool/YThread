@@ -9,12 +9,16 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import { useToast } from '@/hooks/use-toast';
 import { SingleThread } from '@/models/singleThread';
 import ThreadCard from '@/components/ThreadCard';
-import { create } from 'domain';
 import { dataService } from '@/service/dataService';
+import { FaHome } from 'react-icons/fa';
+import { useRouter } from 'next/navigation';
+import { BrowserRouter, } from "react-router-dom";
 
+import '../style.css'
 dayjs.extend(relativeTime); 
 
 const ProfileSection: React.FC = () => {
+  const router = useRouter();
   const { data: session, status } = useSession();
   const [threadsArr, setThreadsArr] = useState<SingleThread[]>([]);
   const [user,setUser] = useState({userName:'',email:''});
@@ -51,6 +55,9 @@ const ProfileSection: React.FC = () => {
     }
 
   }
+  // const redirectToHome = () => {
+  //   router.push('/');
+  // };
   const fetchCreatedAt = async ()=>{
     const res = await axios.get(`/api/fetchUserCreatedAt?userName=${user.userName}`);
     if(res.data.success){
@@ -64,16 +71,38 @@ const ProfileSection: React.FC = () => {
 
   return (
     <>
-<div className="w-full lg:w-2/3 mx-auto mt-4">
+<div className="w-full h-full ">
+
   {/* Profile Section */}
-  <div className="bg-white p-4 rounded-lg shadow-md max-w-xs mb-4">
-    <div className="text-lg font-bold mb-1">{user.userName}</div>
-    <div className="text-sm text-gray-600 mb-2">{user.email}</div>
-    <div className="text-xs text-gray-400">Joined {joinedAt}</div>
+  <div className='h-40 bg-blue-gray-600 top-0 flex flex-col'>
+  <div className='h-10 w-10'>
+  <FaHome onClick={()=>{router.push('/')}}/>
   </div>
 
-  {/* Thread List Section */}
-  {threadsArr.length > 0 ? (
+  <div className="flex flex-row pt-20 ">
+
+    <div className='m-auto'>
+    <div className="text-sm font-bold text-white">Name</div>
+    <div className="text-lg font-bold text-white">{user.userName}</div>
+    </div>
+    <div className='m-auto'>
+    <div className="text-sm font-bold text-white">email</div>
+    <div className="text-lg font-bold text-white">{user.email}</div>
+    </div>
+    <div className='m-auto'>
+    <div className="text-sm font-bold text-white">Threads posted</div>
+    <div className="text-lg font-bold text-white">{threadsArr.length}</div>
+    </div>
+    <div className='m-auto'>
+    <div className="text-sm font-bold text-white">Joined</div>
+    <div className="text-lg font-bold text-white">{joinedAt}</div>
+    </div>
+  </div>
+  </div>
+
+
+    <div className='mt-10'>
+    {threadsArr.length > 0 ? (
     threadsArr.map((thread, index) => (
       <ThreadCard
         index={index}
@@ -87,8 +116,14 @@ const ProfileSection: React.FC = () => {
       />
     ))
   ) : (
-    <p>Loading...</p>
+    <div className='flex items-center justify-center h-screen'>
+    <p className='text-white  text-center'>No threads Currently</p>
+    </div>
+
   )}
+    </div>
+  {/* Thread List Section */}
+
 </div>
 
     </>

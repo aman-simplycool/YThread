@@ -70,7 +70,7 @@ const HomepageThread = () => {
         threadsArr.map((thread, index) => (
           <ThreadCard
             index={index}
-            key={thread.id}
+            key={thread._id as string}
             title={thread.title}
             createdAt={new Date(thread.createdAt).toISOString()}
             userName={thread.userName}

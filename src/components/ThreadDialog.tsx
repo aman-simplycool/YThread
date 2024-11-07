@@ -101,7 +101,6 @@ export function ThreadDialog() {
         });
       }
     } catch (error) {
-      console.log(error);
       toast({
         className:'bg-[#FFAC1C]',
         title: "An error occurred",
