@@ -124,6 +124,5 @@ export function ProfileSectionSuspense(){
     </Suspense>
   )
 }
-export default ProfileSectionSuspense;
 
 
