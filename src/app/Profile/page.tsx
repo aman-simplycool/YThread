@@ -117,12 +117,12 @@ const ProfileSection: React.FC =()=> {
     </div>
   );
 };
-export function ProfileSectionSuspense(){
-  return(
-    <Suspense>
-      <ProfileSection/>
-    </Suspense>
-  )
-}
+const SuspendedProfileSection = () => (
+  <Suspense fallback={<div>Loading...</div>}>
+    <ProfileSection />
+  </Suspense>
+);
+
+export default SuspendedProfileSection;
 
 
