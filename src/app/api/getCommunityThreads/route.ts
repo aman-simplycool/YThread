@@ -2,9 +2,9 @@ import dbConnect from "@/lib/connection";
 import CommunityModel from "@/models/community";
 export async function GET(req:Request){
   await dbConnect();
+  const {searchParams}= new URL(req.url);
+  const userName =searchParams.get('userName');
   try {
-    const {searchParams}= new URL(req.url);
-    const userName =searchParams.get('userName');
     if(!userName){
       return Response.json({message:"did not get the name",status:500,success:false});
     }

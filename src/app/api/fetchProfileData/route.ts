@@ -5,10 +5,9 @@ import UserModel from "@/models/user";
 
 export async function GET(req: Request) {
   await dbConnect();
+  const { searchParams } = new URL(req.url);
+  const userName = searchParams.get('userName');
   try {
-    const { searchParams } = new URL(req.url);
-    const userName = searchParams.get('userName');
-    
     const userObj = await UserModel.findOne({ userName });
     const communityObj = userObj ? null : await CommunityModel.findOne({ communityName:userName});
 
