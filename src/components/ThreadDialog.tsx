@@ -126,7 +126,7 @@ export function ThreadDialog() {
             <DialogHeader>
               <DialogTitle className="flex justify-center">Create Thread</DialogTitle>
               <DialogDescription className="font-bold flex justify-center items-center text-center">
-                Add your thread below. Click save when you're done.
+                Add your thread below. Click save when you&apos;re done.
               </DialogDescription>
             </DialogHeader>
             <div className="">
