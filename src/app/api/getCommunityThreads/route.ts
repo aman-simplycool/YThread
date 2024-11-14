@@ -32,7 +32,6 @@ export async function GET(req:Request){
     
     
     const threads = response.map(item=>item.threadDetails);
-    console.log(response);
     return Response.json({
       message:'succesful',
       success:true,

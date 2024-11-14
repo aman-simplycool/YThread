@@ -1,21 +1,26 @@
 import UserModel from "@/models/user";
 import UserThreadModel from "@/models/UserThreads";
 import dbConnect from "@/lib/connection";
+import CommunityModel from "@/models/community";
+import SingleThreadModel from "@/models/singleThread";
 
 export async function GET(request:Request){
   await dbConnect();
   try {
     const {searchParams}= new URL(request.url);
     const  userName = searchParams.get('userName');
-    const response = await UserThreadModel.find({ userName: { $ne: userName } })
-      .populate({
-        path: 'threads',
-      })
-      .exec();
-    const threads = response.map((item)=>item.threads).flat();
-    return Response.json({message:"threads fetched succesfully",status:200,threads,success:true});
+    const community = await CommunityModel.findOne({userName})||{};
+    const communityName = community.communityName||"";
+    const response = await SingleThreadModel.find({
+      userName: {
+        $exists: true, 
+        $ne: null,
+        $nin: [userName,communityName],
+      }
+    });
+
+    return Response.json({message:"threads fetched succesfully",threads:response,status:200,success:true});
   } catch (error) {
-    console.log(error);
     return Response.json({
       message:"some error occured while retrieving yThreads",
       status:400,

@@ -45,7 +45,6 @@ export async function GET(req: Request) {
     ]);
     
     const threads = topThreadsArr.map(item => item.threadDetails);
-    
     return Response.json({
       message: "Fetched personal best threads",
       success: true,
@@ -53,7 +52,6 @@ export async function GET(req: Request) {
       Threads: threads
     });
   } catch (error) {
-    console.log(error);
     return Response.json({
       message: "Some error occurred",
       status: 500,

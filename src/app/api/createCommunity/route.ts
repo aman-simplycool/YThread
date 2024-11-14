@@ -7,7 +7,6 @@ export async function POST(request:Request){
   await dbConnect();
   try {
     const{userName,communityName,category}= await request.json();
-    
     if(!userName || !communityName || !category){
       return Response.json({message:"incomplete data",status:500,success:false});
     }
@@ -17,7 +16,7 @@ export async function POST(request:Request){
       category,
       followers:0,
       following:0,
-      date:new Date(Date.now()),
+      createdAt:new Date(Date.now()),
       yThreads:[],
     });
     const userObj = await UserModel.findOne({userName});

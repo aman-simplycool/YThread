@@ -10,6 +10,8 @@ export interface user extends Document {
   isVerified: boolean;
   yThreads: Types.ObjectId[];
   community:string;
+  following:string[];
+  followers:string[];
 }
 
 const userSchema = new Schema<user>({
@@ -46,7 +48,15 @@ const userSchema = new Schema<user>({
   community:{
     type: String,
     default:''
-  }
+  },
+  following: {
+    type: [String],
+    default: [],
+  },
+  followers: {
+    type: [String],
+    default: [],
+  }  
 });
 
 // Check if the model already exists

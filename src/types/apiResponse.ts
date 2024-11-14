@@ -13,5 +13,9 @@ export interface apiResponse{
   yesCount?:number,
   thread?:SingleThread,
   user?:UserThread,
-  createdAt?:Date
+  usersArr?:Array<{userName:'',_id:''}>
+  createdAt?:Date,
+  isFollowing?:boolean,
+  isPresent?:boolean,
+  communityHead?:string,
 }

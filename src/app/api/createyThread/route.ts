@@ -10,7 +10,6 @@ export async function POST(request: Request) {
   await dbConnect();
   try {
     const { userName, message, title, communityName, communityPost } = await request.json();
-    
     const user = await UserModel.findOne({userName});
 
     if (!user) {
@@ -20,47 +19,62 @@ export async function POST(request: Request) {
         success: false,
       });
     }
-    const singleThreadObj = new SingleThreadModel({
-      message,
-      title,
-      userName,
-      createdAt: Date.now(),
-      supportUsers:[],
-      againstUsers:[],
-      yesCount:0,
-      noCount:0,
-    });
+    if(communityPost==true){
+      // add the thread into single threads table
+      const singleThreadObj = new SingleThreadModel({
+        message,
+        title,
+        userName:communityName,
+        createdAt: Date.now(),
+        supportUsers:[],
+        againstUsers:[],
+        yesCount:0,
+        noCount:0,
+      });
+      const savedThread = await singleThreadObj.save();
+      const savedThreadId = savedThread._id;
+
+      //2-> save it into communities 
+      const communityObj = await CommunityModel.findOne({communityName});
+      if(communityObj){
+        communityObj.yThreads.push(savedThreadId);
+        await communityObj.save(); 
+      }
+      return Response.json({success:true,message:"saved successfully",status:200});
+    }
+    else{
+      //single thread
+      const singleThreadObj = new SingleThreadModel({
+        message,
+        title,
+        userName,
+        createdAt: Date.now(),
+        supportUsers:[],
+        againstUsers:[],
+        yesCount:0,
+        noCount:0,
+      });
 
     const savedThread = await singleThreadObj.save();
     const savedThreadId = savedThread._id;
-    
-    if(communityPost === 'Yes'){
-      user.community = communityName
-    }
+    //ythread
     user.yThreads.push(savedThreadId);
     await user.save();
-    if(communityPost === 'No'){
-      let userThread = await UserThreadModel.findOne({ userName });
-        if (userThread) {
-          userThread.threads.push(savedThreadId);
-        } else {
-          userThread = new UserThreadModel({
-            userName:user,
-            threads: [savedThreadId],
-          });
-        }
-        await userThread.save();
-      }
-    else{
-      let communityObj = await CommunityModel.findOne({communityName});
-      communityObj.yThreads.push(savedThreadId);
-      await communityObj.save();
+    //userthread table
+    const userThreadObj = await UserThreadModel.findOne({userName});
+    if(userThreadObj){
+      userThreadObj.threads.push(savedThreadId);
+      await userThreadObj.save();
     }
-    return Response.json({
-      message: "Thread created successfully",
-      status: 200,
-      success: true,
-    });
+    else{
+      const newUserThreadObj = new UserThreadModel({
+        userName,
+        threads:[savedThreadId]
+      })
+      await newUserThreadObj.save();
+    }
+    return Response.json({success:true,message:"saved successfully",status:200});
+    }
   } catch (error) {
     console.error('Error:', error);
     return Response.json({
