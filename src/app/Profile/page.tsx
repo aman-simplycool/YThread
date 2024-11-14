@@ -11,7 +11,7 @@ import { SingleThread } from '@/models/singleThread';
 import ThreadCard from '@/components/ThreadCard';
 import { dataService } from '@/service/dataService';
 import { FaHome } from 'react-icons/fa';
-
+import { Suspense } from 'react'
 // import '../style.css'
 dayjs.extend(relativeTime); 
 
@@ -117,7 +117,13 @@ const ProfileSection: React.FC =()=> {
     </div>
   );
 };
-
-export default ProfileSection;
+export function ProfileSectionSuspense(){
+  return(
+    <Suspense>
+      <ProfileSection/>
+    </Suspense>
+  )
+}
+export default ProfileSectionSuspense;
 
 
