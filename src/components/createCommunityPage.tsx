@@ -33,7 +33,7 @@ export function CreateCommunityPage() {
   const [communityName, setCommunityName] = useState('');
   const [isCheckingCommunityName, setIsCheckingCommunityName] = useState(false);
   const [uniqueResMessage, setUniqueResMessage] = useState('');
-  const debounced = useDebounceCallback(setCommunityName, 500);
+  const debounced = useDebounceCallback(setCommunityName, 1500);
   const { toast } = useToast();
   const {data:session,status} = useSession();
   const[user,setUser] = useState({});
@@ -60,6 +60,7 @@ export function CreateCommunityPage() {
   useEffect(()=>{
       setUser(session?.user.userName);
   },[session,status])
+
   useEffect(() => {
     const isUserNameUnique = async () => {
       if (communityName) {
@@ -85,7 +86,7 @@ export function CreateCommunityPage() {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button className='text-base'>start a community</Button>
+        <Button className='text-xl font-semibold text-gray-200 mb-3'>start a community</Button>
       </SheetTrigger>
       <SheetContent className='bg-brown-500'>
         <form onSubmit={handleSubmit}>

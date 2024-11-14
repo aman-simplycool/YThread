@@ -3,8 +3,8 @@ import { toast } from '@/hooks/use-toast';
 import { UserThread } from '@/models/UserThreads';
 import { apiResponse } from '@/types/apiResponse';
 import axios from 'axios';
-import { User } from 'next-auth';
 import React from 'react'
+import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import { useState } from 'react';
 const TopYUsers = () => {
@@ -35,14 +35,20 @@ const TopYUsers = () => {
     }
     fetchTopYUsers();
   },[]);
+  const router = useRouter();
+  const redirectToProf = (userName:string) => () => {
+    router.push(`/Profile?userName=${userName}`);
+  };
   return (
     <div className="flex justify-center min-h-[320px]">
-      <div className="w-80 rounded-lg shadow-lg">
-        <h2 className="text-lg font-semibold text-center mb-4">Top Users</h2>
+      <div className="w-80 rounded-lg">
         <div className="space-y-3">
           {topUsersArr.map((item, index) => (
-            <div key={index} className="bg-white p-3 rounded-md shadow-sm">
-              <h3 className="font-medium text-gray-800">{item.userName}</h3>
+            <div key={index} className="bg-gradient-to-r  from-gray-700 to-gray-800 p-4 rounded-lg cursor-pointer hover:shadow-lg transition-transform transform hover:scale-105 duration-200">
+              <button onClick={redirectToProf(item.userName)}>
+               <h3 className="font-medium text-gray-300 hover:text-gray-100">{item.userName}</h3>
+              </button>
+
             </div>
           ))}
         </div>

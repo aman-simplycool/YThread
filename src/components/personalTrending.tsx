@@ -48,51 +48,43 @@ const PersonalTrending = () => {
   };
 
   return (
-    <div className="flex justify-center min-h-[380px]">
-      <div className="w-80 rounded-lg shadow-lg">
-        <h2 className="text-lg font-semibold text-center mb-4">Your Trending Y&apos;s</h2>
-  
-        {trendingYArr.length > 0 ? (
-          // Render trending threads if they exist
-          <div className="space-y-3">
-            {trendingYArr.slice(0, 5).map((item, index) => (
-              <HoverCard key={index}>
-                <HoverCardTrigger asChild>
-                  <div
-                    className="bg-white p-3 rounded-md shadow-sm cursor-pointer"
-                    onClick={() => handleThreadClick(item)}
-                  >
-                    <h3 className="font-medium text-gray-800">{item.title}</h3>
-                  </div>
-                </HoverCardTrigger>
-  
-                <HoverCardContent className="p-4 bg-gray-800 rounded-lg shadow-lg text-white border-none transition-transform transform hover:scale-105 duration-300">
-                  <div className="space-y-2 text-center">
-                    <h4 className="text-lg font-semibold">Trending Thread</h4>
-                    <p className="text-sm">Click to see what&apos;s inside</p>
-                  </div>
-                </HoverCardContent>
-              </HoverCard>
-            ))}
-          </div>
-        ) : (
-          // Custom message when no trending threads
-          <div className="text-center p-4 bg-white rounded-md shadow-sm">
-            <p className="text-gray-500">you are not trending right now ,post one thread to see some change here!!</p>
-          </div>
-        )}
-  
-        {/* Render the dialog */}
-        {selectedThread && (
-          <DisplayTrendingThreadDialog
-            title={selectedThread.title}
-            data={selectedThread} // Pass the selected thread data
-            isOpen={isDialogOpen}
-            onClose={() => setIsDialogOpen(false)} // Close dialog handler
-          />
-        )}
+<div className="flex justify-center min-h-[380px]">
+  <div className="w-80 rounded-lg space-y-4">
+    {trendingYArr.length > 0 ? (
+      // Render trending threads if they exist
+      <div className="space-y-4">
+        {trendingYArr.slice(0, 5).map((item, index) => (
+          <HoverCard key={index}>
+            <HoverCardTrigger asChild>
+              <div
+                className="p-4 rounded-lg bg-gray-900 text-white shadow-lg cursor-pointer transition-transform transform hover:scale-105 hover:shadow-2xl duration-300"
+                onClick={() => handleThreadClick(item)}
+              >
+                <h3 className="font-medium text-lg tracking-tight">{item.title}</h3>
+              </div>
+            </HoverCardTrigger>
+          </HoverCard>
+        ))}
       </div>
-    </div>
+    ) : (
+      // Custom message when no trending threads
+      <div className="text-center p-4 bg-gray-700 rounded-md shadow-md">
+        <p className="text-gray-400">You are not trending right now. Post a thread to see changes here!</p>
+      </div>
+    )}
+
+    {/* Render the dialog */}
+    {selectedThread && (
+      <DisplayTrendingThreadDialog
+        title={selectedThread.title}
+        data={selectedThread} // Pass the selected thread data
+        isOpen={isDialogOpen}
+        onClose={() => setIsDialogOpen(false)} // Close dialog handler
+      />
+    )}
+  </div>
+</div>
+
   );
 };
 

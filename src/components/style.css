@@ -40,7 +40,7 @@
     border-color: transparent; /* All borders transparent */
   }
 }
-
+/* Hide scrollbar for Chrome, Safari and Opera */
 .dialog-animate {
   border-style: solid;
   border-color: transparent; /* Start with transparent */

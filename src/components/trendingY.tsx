@@ -10,8 +10,8 @@ import { HoverCard, HoverCardContent, HoverCardTrigger } from './ui/hover-card';
 
 const TrendingYs = () => {
   const [trendingYArr, setTrendingYs] = useState<SingleThread[]>([]);
-  const [selectedThread,setSelectedThread] = useState<SingleThread|null>(null);
-  const [isDialogOpen,setIsDialogOpen] = useState(false);
+  const [selectedThread, setSelectedThread] = useState<SingleThread | null>(null);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
   const { toast } = useToast();
 
   useEffect(() => {
@@ -23,53 +23,44 @@ const TrendingYs = () => {
         }
       } catch (error) {
         const errorResponse = error as AxiosError<apiResponse>;
+        console.error("Error fetching trending threads", errorResponse);
       }
     };
     fetchTrendingYs();
   }, []);
 
-  const handleThreadClick = (thread:SingleThread)=>{
+  const handleThreadClick = (thread: SingleThread) => {
     setIsDialogOpen(true);
     setSelectedThread(thread);
-  }
+  };
 
   return (
-    <div className="flex justify-center h-80">
-      <div className="w-80 rounded-lg shadow-lg">
-        <h2 className="text-lg font-semibold text-center mb-4">Most Trending Y&apos;s</h2>
-        <div className="space-y-3">
-          {trendingYArr.slice(0, 5).map((item, index) => (
-          <HoverCard key={index}>
+<div className="flex justify-center min-h-[380px]">
+  <div className="w-80 bg-gradient-to-b from-gray-800 via-gray-900 to-black rounded-lg p-6 shadow-2xl space-y-4">
+    <div className="space-y-3">
+      {trendingYArr.slice(0, 5).map((item, index) => (
+        <HoverCard key={index}>
           <HoverCardTrigger asChild>
-            <div className="bg-white p-3 rounded-md shadow-sm cursor-pointer" onClick={()=>handleThreadClick(item)}>
-              <h3 className="font-medium text-gray-800">{item.title}</h3>
+            <div
+              className="bg-gradient-to-r from-gray-700 to-gray-800 p-4 rounded-lg cursor-pointer hover:shadow-lg transition-transform transform hover:scale-105 duration-200"
+              onClick={() => handleThreadClick(item)}
+            >
+              <h3 className="font-medium text-gray-300 hover:text-gray-100 text-lg">{item.title}</h3>
             </div>
-            </HoverCardTrigger>
-
-            <HoverCardContent className="p-4 bg-gray-800 rounded-lg shadow-lg text-white border-none transition-transform transform hover:scale-105 duration-300">
-              <div className="space-y-2 text-center">
-                <h4 className="text-lg font-semibold">Trending Thread</h4>
-                <p className="text-sm">Click to see what&apos;s inside</p>
-              </div>
-            </HoverCardContent>
-            </HoverCard>
-          ))}
-        </div>
-        <div className="text-center mt-10">
-          <Link href={'/explore'} className="text-blue-600 hover:text-blue-800">
-            Show more
-          </Link>
-        </div>
-      </div>
-      {selectedThread && (
-        <DisplayTrendingThreadDialog
-          title={selectedThread.title}
-          data={selectedThread}
-          isOpen={isDialogOpen}
-          onClose={() => setIsDialogOpen(false)}
-        />
-      )}
+          </HoverCardTrigger>
+        </HoverCard>
+      ))}
     </div>
+  </div>
+  {selectedThread && (
+    <DisplayTrendingThreadDialog
+      title={selectedThread.title}
+      data={selectedThread}
+      isOpen={isDialogOpen}
+      onClose={() => setIsDialogOpen(false)}
+    />
+  )}
+</div>
   );
 };
 
